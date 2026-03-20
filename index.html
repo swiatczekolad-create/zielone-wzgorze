@@ -17,6 +17,7 @@
   --forest-deep: #1A3A26;
   --sage: #7A9E7E;
   --sage-light: #B8D4BB;
+  --accent-green: #3DB854;
   --cream: #F7F3ED;
   --cream-dark: #EDE7DD;
   --warm: #C4A882;
@@ -89,7 +90,7 @@ nav.scrolled {
   left: 0;
   width: 24px;
   height: 2px;
-  background: var(--sage-light);
+  background: var(--accent-green);
   border-radius: 1px;
   transition: all 0.3s ease;
 }
@@ -99,7 +100,7 @@ nav.scrolled {
 }
 
 nav.scrolled .nav-logo-text { color: var(--forest-deep); }
-nav.scrolled .nav-logo-text::after { background: var(--forest); }
+nav.scrolled .nav-logo-text::after { background: var(--accent-green); }
 nav.scrolled .nav-logo-zielone { opacity: 0.6; }
 
 .nav-links {
@@ -219,7 +220,7 @@ nav.scrolled .nav-hamburger span { background: var(--charcoal); }
 .hero-tag-line {
   width: 1.5px;
   height: 0;
-  background: rgba(255,255,255,0.6);
+  background: var(--accent-green);
   animation: lineGrow 0.8s ease 0.6s both;
 }
 
@@ -255,7 +256,7 @@ nav.scrolled .nav-hamburger span { background: var(--charcoal); }
 
 .hero h1 em {
   font-style: italic;
-  color: var(--sage-light);
+  color: var(--accent-green);
 }
 
 .hero-sub {
