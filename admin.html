@@ -226,7 +226,7 @@ function showAdmin(data) {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('adminPanel').style.display = 'block';
   try {
-    var content = JSON.parse(atob(data.content));
+    var content = JSON.parse(decodeURIComponent(escape(atob(data.content))));
     document.querySelectorAll('[data-key]').forEach(function(el) {
       if (content[el.dataset.key] !== undefined) el.value = content[el.dataset.key];
     });
