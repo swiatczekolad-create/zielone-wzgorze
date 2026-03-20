@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Admina — Zielone Wzgórze</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --forest: #2D5A3D;
+  --forest-deep: #1A3A26;
+  --cream: #F7F3ED;
+  --cream-dark: #EDE7DD;
+  --charcoal: #2C2C2C;
+  --text: #3A3A3A;
+  --text-light: #6B6B6B;
+  --white: #FFFFFF;
+  --red: #D94F4F;
+  --green: #4CAF50;
+}
+body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+.login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+.login-box { background: var(--white); padding: 48px; border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.06); text-align: center; max-width: 420px; width: 100%; }
+.login-box h1 { font-size: 1.4rem; font-weight: 600; color: var(--charcoal); margin-bottom: 8px; }
+.login-box > p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 28px; line-height: 1.5; }
+.login-box input { width: 100%; padding: 14px 18px; border: 1.5px solid var(--cream-dark); border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.3s ease; }
+.login-box input:focus { border-color: var(--forest); }
+.login-box button { width: 100%; padding: 14px; background: var(--forest); color: var(--white); border: none; border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 16px; transition: background 0.3s ease; }
+.login-box button:hover { background: var(--forest-deep); }
+.login-error { color: var(--red); font-size: 0.85rem; margin-top: 12px; display: none; }
+.login-hint { font-size: 0.78rem; color: var(--text-light); margin-top: 20px; line-height: 1.5; padding-top: 16px; border-top: 1px solid var(--cream-dark); }
+.admin-panel { display: none; }
+.admin-header { background: var(--forest-deep); padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+.admin-header h1 { color: var(--white); font-size: 1.1rem; font-weight: 600; }
+.admin-header-actions { display: flex; gap: 12px; }
+.btn-save, .btn-logout, .btn-preview { padding: 10px 24px; border: none; border-radius: 8px; font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
+.btn-save { background: var(--green); color: var(--white); }
+.btn-save:hover { background: #43A047; }
+.btn-save:disabled { background: #999; cursor: not-allowed; }
+.btn-preview { background: rgba(255,255,255,0.1); color: var(--white); }
+.btn-preview:hover { background: rgba(255,255,255,0.2); }
+.btn-logout { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
+.btn-logout:hover { background: rgba(255,255,255,0.2); color: var(--white); }
+.admin-body { max-width: 800px; margin: 0 auto; padding: 40px 24px 80px; }
+.admin-section { background: var(--white); border-radius: 16px; padding: 32px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+.admin-section h2 { font-size: 1.1rem; font-weight: 700; color: var(--forest); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--cream-dark); }
+.field { margin-bottom: 20px; }
+.field:last-child { margin-bottom: 0; }
+.field label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+.field label .hint { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--text-light); font-size: 0.78rem; }
+.field input, .field textarea { width: 100%; padding: 12px 16px; border: 1.5px solid var(--cream-dark); border-radius: 8px; font-family: 'Outfit', sans-serif; font-size: 0.95rem; outline: none; background: var(--cream); transition: all 0.3s ease; }
+.field input:focus, .field textarea:focus { border-color: var(--forest); background: var(--white); }
+.field textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.status-bar { position: fixed; bottom: 0; left: 0; right: 0; padding: 14px 32px; text-align: center; font-size: 0.9rem; font-weight: 500; transform: translateY(100%); transition: transform 0.4s ease; z-index: 200; }
+.status-bar.show { transform: translateY(0); }
+.status-bar.success { background: var(--green); color: var(--white); }
+.status-bar.error { background: var(--red); color: var(--white); }
+.status-bar.loading { background: var(--charcoal); color: var(--white); }
+@media (max-width: 600px) {
+  .login-box { margin: 20px; padding: 32px 24px; }
+  .admin-section { padding: 24px 20px; }
+  .field-row { grid-template-columns: 1fr; }
+  .admin-header { padding: 16px 20px; flex-wrap: wrap; gap: 12px; }
+  .admin-header h1 { font-size: 0.95rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <h1>Zielone Wzgórze</h1>
+    <p>Panel zarządzania treścią strony.<br>Wpisz klucz dostępu otrzymany od administratora.</p>
+    <input type="password" id="tokenInput" placeholder="Klucz dostępu" onkeydown="if(event.key==='Enter')login()">
+    <button onclick="login()">Zaloguj się</button>
+    <p class="login-error" id="loginError">Nieprawidłowy klucz. Sprawdź i spróbuj ponownie.</p>
+    <p class="login-hint">Klucz zaczyna się od „ghp_". Jeśli go nie masz, skontaktuj się z administratorem strony.</p>
+  </div>
+</div>
+
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-header">
+    <h1>Panel Admina — Zielone Wzgórze</h1>
+    <div class="admin-header-actions">
+      <a class="btn-preview" href="/" target="_blank">Podgląd strony</a>
+      <button class="btn-save" id="saveBtn" onclick="saveContent()">Zapisz zmiany</button>
+      <button class="btn-logout" onclick="logout()">Wyloguj</button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <div class="admin-section">
+      <h2>Sekcja Hero (baner główny)</h2>
+      <div class="field"><label>Podpis — linia 1</label><input type="text" data-key="hero_podpis_linia1"></div>
+      <div class="field"><label>Podpis — linia 2</label><input type="text" data-key="hero_podpis_linia2"></div>
+      <div class="field"><label>Podtytuł <span class="hint">(tekst pod „Zielone Wzgórze")</span></label><textarea data-key="hero_podtytul"></textarea></div>
+    </div>
+    <div class="admin-section">
+      <h2>Cena i terminy</h2>
+      <div class="field-row">
+        <div class="field"><label>Cena segmentu</label><input type="text" data-key="cena"></div>
+        <div class="field"><label>Cena za m²</label><input type="text" data-key="cena_m2"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Termin — Budynek I</label><input type="text" data-key="termin_budynek1"></div>
+        <div class="field"><label>Termin — Budynek II</label><input type="text" data-key="termin_budynek2"></div>
+      </div>
+    </div>
+    <div class="admin-section">
+      <h2>Kontakt</h2>
+      <div class="field-row">
+        <div class="field"><label>Telefon</label><input type="text" data-key="telefon"></div>
+        <div class="field"><label>Adres e-mail</label><input type="text" data-key="email"></div>
+      </div>
+    </div>
+    <div class="admin-section">
+      <h2>Opis — wprowadzenie lifestyle</h2>
+      <div class="field"><label>Akapit główny <span class="hint">(„wyobraź sobie poranek...")</span></label><textarea data-key="opis_lifestyle" style="min-height:140px"></textarea></div>
+      <div class="field"><label>Akapit drugi</label><textarea data-key="opis_lifestyle2"></textarea></div>
+    </div>
+    <div class="admin-section">
+      <h2>Opis — kameralne osiedle</h2>
+      <div class="field"><label>Akapit 1</label><textarea data-key="opis_kameralne1" style="min-height:120px"></textarea></div>
+      <div class="field"><label>Akapit 2</label><textarea data-key="opis_kameralne2" style="min-height:120px"></textarea></div>
+    </div>
+    <div class="admin-section">
+      <h2>Opis — Kielno</h2>
+      <div class="field"><label>Akapit 1</label><textarea data-key="opis_kielno1" style="min-height:120px"></textarea></div>
+      <div class="field"><label>Akapit 2</label><textarea data-key="opis_kielno2"></textarea></div>
+    </div>
+    <div class="admin-section">
+      <h2>Opis — architektura</h2>
+      <div class="field"><label>Akapit 1</label><textarea data-key="opis_architektura1" style="min-height:120px"></textarea></div>
+      <div class="field"><label>Akapit 2</label><textarea data-key="opis_architektura2"></textarea></div>
+    </div>
+    <div class="admin-section">
+      <h2>Baner CTA (wezwanie do działania)</h2>
+      <div class="field"><label>Tytuł</label><input type="text" data-key="cta_tytul"></div>
+      <div class="field"><label>Tekst</label><textarea data-key="cta_tekst"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<div class="status-bar" id="statusBar"></div>
+
+<script>
+const REPO = 'swiatczekolad-create/zielone-wzgorze';
+const FILE = 'content.json';
+let fileSha = '';
+let ghToken = '';
+
+async function login() {
+  const token = document.getElementById('tokenInput').value.trim();
+  if (!token) return;
+  try {
+    const res = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + FILE, {
+      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (res.ok) {
+      ghToken = token;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      const data = await res.json();
+      fileSha = data.sha;
+      fillForm(data);
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+      document.getElementById('tokenInput').value = '';
+    }
+  } catch(e) {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+
+function fillForm(data) {
+  try {
+    const content = JSON.parse(atob(data.content));
+    document.querySelectorAll('[data-key]').forEach(function(el) {
+      var key = el.dataset.key;
+      if (content[key] !== undefined) el.value = content[key];
+    });
+    showStatus('Treści wczytane', 'success');
+  } catch(e) {
+    showStatus('Błąd parsowania treści', 'error');
+  }
+}
+
+function logout() {
+  ghToken = '';
+  fileSha = '';
+  document.getElementById('adminPanel').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('tokenInput').value = '';
+  document.getElementById('loginError').style.display = 'none';
+}
+
+function showStatus(msg, type) {
+  var bar = document.getElementById('statusBar');
+  bar.textContent = msg;
+  bar.className = 'status-bar show ' + type;
+  if (type !== 'loading') setTimeout(function() { bar.classList.remove('show'); }, 3500);
+}
+
+async function saveContent() {
+  var btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.textContent = 'Zapisywanie...';
+  showStatus('Zapisywanie zmian...', 'loading');
+  try {
+    var content = {};
+    document.querySelectorAll('[data-key]').forEach(function(el) {
+      content[el.dataset.key] = el.value;
+    });
+    var json = JSON.stringify(content, null, 2) + '\n';
+    var encoded = btoa(unescape(encodeURIComponent(json)));
+    var res = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + FILE, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'token ' + ghToken,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message: 'Aktualizacja treści ze strony admin', content: encoded, sha: fileSha })
+    });
+    var data = await res.json();
+    if (data.content) {
+      fileSha = data.content.sha;
+      showStatus('Zmiany zapisane! Strona zaktualizuje się za ok. 1-2 minuty.', 'success');
+    } else {
+      throw new Error(data.message || 'Nieznany błąd');
+    }
+  } catch(e) {
+    showStatus('Błąd zapisu: ' + e.message, 'error');
+  }
+  btn.disabled = false;
+  btn.textContent = 'Zapisz zmiany';
+}
+</script>
+</body>
+</html>

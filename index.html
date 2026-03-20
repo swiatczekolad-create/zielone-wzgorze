@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zielone Wzgórze — Domy w zabudowie bliźniaczej | Kielno, gmina Szemud</title>
+<meta name="description" content="Zielone Wzgórze — nowoczesne domy w zabudowie bliźniaczej w Kielnie. 120 m², działki 500 m², blisko Trójmiasta. Deweloper MJ Invest Budownictwo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="img/slide1.jpg">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --forest: #2D5A3D;
+  --forest-deep: #1A3A26;
+  --sage: #7A9E7E;
+  --sage-light: #B8D4BB;
+  --cream: #F7F3ED;
+  --cream-dark: #EDE7DD;
+  --warm: #C4A882;
+  --warm-light: #DBC7AA;
+  --charcoal: #2C2C2C;
+  --text: #3A3A3A;
+  --text-light: #6B6B6B;
+  --white: #FFFFFF;
+  --gold: #B8964E;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  color: var(--text);
+  background: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== NAVIGATION ===== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 0 40px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+  background: transparent;
+}
+
+nav.scrolled {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 1px 20px rgba(0,0,0,0.08);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-logo-text {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.4rem;
+  color: var(--white);
+  transition: color 0.4s ease;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  position: relative;
+}
+
+.nav-logo-zielone {
+  font-weight: 400;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.nav-logo-text::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 24px;
+  height: 2px;
+  background: var(--sage-light);
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+.nav-logo:hover .nav-logo-text::after {
+  width: 100%;
+}
+
+nav.scrolled .nav-logo-text { color: var(--forest-deep); }
+nav.scrolled .nav-logo-text::after { background: var(--forest); }
+nav.scrolled .nav-logo-zielone { opacity: 0.6; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  letter-spacing: 0.02em;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+nav.scrolled .nav-links a { color: var(--text); }
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 2px;
+  background: var(--forest);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  padding: 10px 24px !important;
+  background: var(--forest) !important;
+  color: var(--white) !important;
+  border-radius: 8px;
+  transition: all 0.3s ease !important;
+}
+
+.nav-cta:hover { background: var(--forest-deep) !important; transform: translateY(-1px); }
+.nav-cta::after { display: none !important; }
+
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.nav-hamburger span {
+  width: 26px; height: 2px;
+  background: var(--white);
+  transition: all 0.3s ease;
+}
+
+nav.scrolled .nav-hamburger span { background: var(--charcoal); }
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  overflow: hidden;
+}
+
+.hero-slider {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-slide.active { opacity: 1; }
+
+.hero-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(26, 58, 38, 0.75) 0%,
+    rgba(26, 58, 38, 0.45) 40%,
+    rgba(0,0,0,0.3) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  width: fit-content;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.hero-tag-line {
+  width: 1.5px;
+  height: 0;
+  background: rgba(255,255,255,0.6);
+  animation: lineGrow 0.8s ease 0.6s both;
+}
+
+@keyframes lineGrow {
+  from { height: 0; }
+  to { height: 36px; }
+}
+
+.hero-tag-text {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  font-family: 'Outfit', sans-serif;
+  animation: fadeIn 0.6s ease 1s both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 20px;
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--sage-light);
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  color: rgba(255,255,255,0.85);
+  line-height: 1.7;
+  max-width: 540px;
+  margin-bottom: 36px;
+  font-weight: 300;
+  animation: fadeInUp 0.8s ease 0.6s both;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  animation: fadeInUp 0.8s ease 0.8s both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  background: var(--white);
+  color: var(--forest-deep);
+  border: none;
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  background: transparent;
+  color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.4);
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.7); }
+
+.hero-slider-dots {
+  position: absolute;
+  bottom: 40px;
+  left: 80px;
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+}
+
+.hero-dot {
+  width: 40px; height: 3px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.hero-dot.active {
+  background: var(--white);
+  width: 60px;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  right: 80px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+  animation: scroll-pulse 2s ease infinite;
+}
+
+@keyframes scroll-pulse {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(0.5); opacity: 0.3; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== KEY NUMBERS STRIP ===== */
+.numbers-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--forest-deep);
+}
+
+.number-item {
+  padding: 40px 32px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  transition: background 0.3s ease;
+}
+
+.number-item:last-child { border-right: none; }
+.number-item:hover { background: rgba(255,255,255,0.05); }
+
+.number-value {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.4rem;
+  color: var(--sage-light);
+  margin-bottom: 6px;
+}
+
+.number-label {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+/* ===== SECTION COMMON ===== */
+section { padding: 100px 40px; }
+
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forest);
+  margin-bottom: 16px;
+}
+
+.section-label::before {
+  content: '';
+  width: 30px; height: 2px;
+  background: var(--forest);
+}
+
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  color: var(--charcoal);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  line-height: 1.7;
+  max-width: 640px;
+  font-weight: 300;
+}
+
+/* ===== ABOUT ===== */
+.about {
+  background: var(--white);
+}
+
+.about-lifestyle {
+  margin-top: 48px;
+  margin-bottom: 60px;
+  max-width: 900px;
+}
+
+.about-lead {
+  font-size: 1.25rem;
+  line-height: 1.9;
+  color: var(--charcoal);
+  font-weight: 300;
+  margin-bottom: 20px;
+  border-left: 3px solid var(--sage);
+  padding-left: 24px;
+}
+
+.about-lead strong {
+  font-weight: 600;
+  color: var(--forest);
+}
+
+.about-lifestyle p:not(.about-lead) {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text);
+  font-weight: 300;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+  margin-bottom: 80px;
+}
+
+.about-heading {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.35rem;
+  color: var(--charcoal);
+  margin-top: 32px;
+  margin-bottom: 14px;
+  position: relative;
+  padding-left: 18px;
+}
+
+.about-heading::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 6px;
+  height: 6px;
+  background: var(--forest);
+  border-radius: 50%;
+}
+
+.about-text p {
+  font-size: 1.02rem;
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 16px;
+  font-weight: 300;
+}
+
+.about-text p strong {
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.about-text .about-heading:first-child {
+  margin-top: 0;
+}
+
+.about-image-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 100px;
+}
+
+.about-image {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.about-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-image-second {
+  border-radius: 16px;
+  max-height: 250px;
+}
+
+.about-image-second img {
+  height: 250px;
+}
+
+.about-image-badge {
+  position: absolute;
+  bottom: 20px; left: 20px;
+  background: var(--white);
+  padding: 16px 24px;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.about-image-badge-value {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.6rem;
+  color: var(--forest);
+}
+
+.about-image-badge-label {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+/* WHY US */
+.about-why {
+  margin-bottom: 60px;
+}
+
+.about-why-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  color: var(--charcoal);
+  margin-bottom: 8px;
+}
+
+.about-why-subtitle {
+  font-size: 1rem;
+  color: var(--text-light);
+  font-weight: 300;
+  margin-bottom: 36px;
+}
+
+.about-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.about-feature-big {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 28px;
+  background: var(--cream);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.about-feature-big:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+  border-color: var(--sage-light);
+}
+
+.about-feature-big .about-feature-icon {
+  width: 44px; height: 44px;
+  min-width: 44px;
+  background: var(--forest);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+}
+
+.about-feature-big h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 6px;
+}
+
+.about-feature-big p {
+  font-size: 0.88rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* CTA BANNER */
+.about-cta-banner {
+  background: var(--forest);
+  border-radius: 24px;
+  padding: 48px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.about-cta-content h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.8rem;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.about-cta-content p {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  font-weight: 300;
+  max-width: 560px;
+}
+
+.about-cta-banner .btn-primary:hover {
+  background: var(--cream) !important;
+}
+
+/* ===== HOUSE DETAILS ===== */
+.house { background: var(--cream); }
+
+.house-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 60px;
+}
+
+.house-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 36px;
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.house-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 4px;
+  background: linear-gradient(to right, var(--forest), var(--sage));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.house-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+.house-card:hover::before { opacity: 1; }
+
+.house-card-icon {
+  width: 56px; height: 56px;
+  background: linear-gradient(135deg, var(--sage-light), var(--cream));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
+
+.house-card h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.3rem;
+  color: var(--charcoal);
+  margin-bottom: 12px;
+}
+
+.house-card p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-light);
+  font-weight: 300;
+}
+
+.house-card .highlight {
+  font-weight: 600;
+  color: var(--forest);
+}
+
+/* ===== FLOOR PLAN ===== */
+.floor-plans {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.floor-plan-card {
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.floor-plan-header {
+  padding: 24px 32px;
+  background: var(--forest-deep);
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.floor-plan-header h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+}
+
+.floor-plan-header span {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.floor-plan-rooms {
+  padding: 28px 32px;
+}
+
+.floor-plan-room {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--cream-dark);
+  font-size: 0.95rem;
+}
+
+.floor-plan-room:last-child { border-bottom: none; font-weight: 600; color: var(--forest); }
+
+.floor-plan-room span:first-child { color: var(--text); }
+.floor-plan-room span:last-child { font-weight: 500; color: var(--charcoal); }
+
+/* ===== LOCATION ===== */
+.location { background: var(--white); }
+
+.location-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-top: 60px;
+  align-items: start;
+}
+
+.location-advantages {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.location-advantage {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 24px;
+  background: var(--cream);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.location-advantage:hover { transform: translateX(5px); }
+
+.location-advantage-icon {
+  width: 48px; height: 48px;
+  min-width: 48px;
+  background: var(--forest);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.location-advantage h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 4px;
+}
+
+.location-advantage p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+.location-map {
+  border-radius: 20px;
+  overflow: hidden;
+  height: 500px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.location-map iframe {
+  width: 100%; height: 100%;
+  border: none;
+}
+
+/* ===== PRICING ===== */
+.pricing {
+  background: var(--forest-deep);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(122,158,126,0.15), transparent);
+  border-radius: 50%;
+}
+
+.pricing .section-label { color: var(--sage-light); }
+.pricing .section-label::before { background: var(--sage-light); }
+.pricing .section-title { color: var(--white); }
+.pricing .section-subtitle { color: rgba(255,255,255,0.6); }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 60px;
+}
+
+.pricing-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  padding: 40px;
+  position: relative;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(10px);
+}
+
+.pricing-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
+
+.pricing-card-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgba(111,207,151,0.15);
+  color: #6FCF97;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.pricing-card h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.pricing-card-term {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 28px;
+}
+
+.pricing-card-price {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.8rem;
+  color: var(--sage-light);
+  margin-bottom: 8px;
+}
+
+.pricing-card-price-note {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 28px;
+}
+
+.pricing-card-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pricing-card-features li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.75);
+  font-weight: 300;
+}
+
+.pricing-card-features li::before {
+  content: '✓';
+  width: 22px; height: 22px;
+  min-width: 22px;
+  background: rgba(111,207,151,0.15);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: #6FCF97;
+}
+
+/* ===== TIMELINE ===== */
+.timeline-section { background: var(--cream); }
+
+.timeline {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-top: 60px;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 25%;
+  right: 25%;
+  height: 2px;
+  background: var(--sage);
+}
+
+.timeline-item {
+  flex: 1;
+  max-width: 300px;
+  text-align: center;
+  position: relative;
+}
+
+.timeline-dot {
+  width: 20px; height: 20px;
+  background: var(--forest);
+  border: 4px solid var(--cream);
+  border-radius: 50%;
+  margin: 30px auto 24px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 4px var(--sage-light);
+}
+
+.timeline-item:first-child .timeline-dot {
+  background: #6FCF97;
+  box-shadow: 0 0 0 4px rgba(111,207,151,0.3);
+}
+
+.timeline-item h4 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+  color: var(--charcoal);
+  margin-bottom: 8px;
+}
+
+.timeline-item p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* ===== CONTACT ===== */
+.contact { background: var(--white); }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-top: 60px;
+  align-items: start;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.contact-card {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 28px;
+  background: var(--cream);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.contact-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+
+.contact-card-icon {
+  width: 52px; height: 52px;
+  min-width: 52px;
+  background: var(--forest);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.contact-card h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+
+.contact-card a, .contact-card p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  text-decoration: none;
+  line-height: 1.5;
+}
+
+.contact-card a:hover { color: var(--forest); }
+
+.contact-form {
+  background: var(--cream);
+  border-radius: 24px;
+  padding: 40px;
+}
+
+.contact-form h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem;
+  color: var(--charcoal);
+  margin-bottom: 8px;
+}
+
+.contact-form > p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 28px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1.5px solid var(--cream-dark);
+  border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  background: var(--white);
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus { border-color: var(--forest); }
+
+.form-group textarea { resize: vertical; min-height: 100px; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-submit {
+  width: 100%;
+  padding: 16px;
+  background: var(--forest);
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+}
+
+.form-submit:hover { background: var(--forest-deep); transform: translateY(-2px); }
+
+.form-note {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+/* ===== DEVELOPER STRIP ===== */
+.developer {
+  background: var(--charcoal);
+  padding: 32px 40px;
+}
+
+.developer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.developer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.developer-info span:first-child {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.developer-info span:last-child {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.8);
+  font-weight: 500;
+}
+
+.developer-disclaimer {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.3);
+  max-width: 500px;
+  text-align: right;
+  line-height: 1.5;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--charcoal);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 20px 40px;
+  text-align: center;
+}
+
+footer p {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--forest-deep);
+  z-index: 999;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.mobile-menu.open { opacity: 1; pointer-events: all; }
+
+.mobile-menu a {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.8rem;
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.mobile-menu a:hover { color: var(--sage-light); }
+
+.mobile-menu-hint {
+  position: absolute;
+  bottom: 40px;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.03em;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  nav { padding: 0 24px; }
+  .hero-content { padding: 0 40px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-image-stack { position: static; }
+  .about-features-grid { grid-template-columns: 1fr 1fr; }
+  .house-cards { grid-template-columns: 1fr 1fr; }
+  .floor-plans { grid-template-columns: 1fr; }
+  .location-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .hero-scroll-hint { display: none; }
+  .hero-slider-dots { left: 40px; }
+  .numbers-strip { grid-template-columns: repeat(2, 1fr); }
+  .number-item:nth-child(2) { border-right: none; }
+  .about-cta-banner { flex-direction: column; text-align: center; padding: 40px 32px; }
+  .about-cta-content p { max-width: 100%; }
+}
+
+@media (max-width: 768px) {
+  section { padding: 72px 24px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .mobile-menu { display: flex; }
+  .hero-content { padding: 0 24px; }
+  .hero-slider-dots { left: 24px; }
+  .house-cards { grid-template-columns: 1fr; }
+  .about-features-grid { grid-template-columns: 1fr; }
+  .timeline { flex-direction: column; align-items: center; }
+  .timeline::before { display: none; }
+  .form-row { grid-template-columns: 1fr; }
+  .developer-inner { flex-direction: column; gap: 16px; text-align: center; }
+  .developer-disclaimer { text-align: center; }
+  .numbers-strip { grid-template-columns: 1fr 1fr; }
+  .about-lead { font-size: 1.1rem; padding-left: 18px; }
+  .about-why-title { font-size: 1.6rem; }
+  .about-cta-banner { padding: 32px 24px; }
+  .about-cta-content h3 { font-size: 1.4rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-text"><span class="nav-logo-zielone">Zielone</span> Wzgórze</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#o-inwestycji">O inwestycji</a></li>
+    <li><a href="#domy">Domy</a></li>
+    <li><a href="#lokalizacja">Lokalizacja</a></li>
+    <li><a href="#cennik">Cennik</a></li>
+    <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+  </ul>
+  <div class="nav-hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#o-inwestycji" onclick="toggleMenu()">O inwestycji</a>
+  <a href="#domy" onclick="toggleMenu()">Domy</a>
+  <a href="#lokalizacja" onclick="toggleMenu()">Lokalizacja</a>
+  <a href="#cennik" onclick="toggleMenu()">Cennik</a>
+  <a href="#kontakt" onclick="toggleMenu()">Kontakt</a>
+  <span class="mobile-menu-hint">Dotknij tło lub przesuń w dół, aby zamknąć</span>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-slider">
+    <div class="hero-slide active" style="background-image: url('img/slide1.jpg')"></div>
+    <div class="hero-slide" data-bg="img/slide2.jpg"></div>
+    <div class="hero-slide" data-bg="img/slide3.jpg"></div>
+    <div class="hero-slide" data-bg="img/slide4.jpg"></div>
+    <div class="hero-slide" data-bg="img/slide5.jpg"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span class="hero-tag-line"></span>
+      <span class="hero-tag-text"><span data-content="hero_podpis_linia1">Kielno · gmina Szemud</span><br><span data-content="hero_podpis_linia2">4 segmenty · odbiór 2026</span></span>
+    </div>
+    <h1>Zielone <em>Wzgórze</em></h1>
+    <p class="hero-sub" data-content="hero_podtytul">Nowoczesne domy w zabudowie bliźniaczej w sercu Kielna. Przestrzeń, natura i bliskość Trójmiasta — wszystko, czego potrzebujesz.</p>
+    <div class="hero-actions">
+      <a href="#kontakt" class="btn-primary">Zapytaj o ofertę →</a>
+      <a href="#domy" class="btn-secondary">Zobacz domy</a>
+    </div>
+  </div>
+
+  <div class="hero-slider-dots">
+    <div class="hero-dot active" onclick="goToSlide(0)"></div>
+    <div class="hero-dot" onclick="goToSlide(1)"></div>
+    <div class="hero-dot" onclick="goToSlide(2)"></div>
+    <div class="hero-dot" onclick="goToSlide(3)"></div>
+    <div class="hero-dot" onclick="goToSlide(4)"></div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <span>Przewiń</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- KEY NUMBERS -->
+<div class="numbers-strip">
+  <div class="number-item">
+    <div class="number-value">120 m²</div>
+    <div class="number-label">Powierzchnia użytkowa</div>
+  </div>
+  <div class="number-item">
+    <div class="number-value">500 m²</div>
+    <div class="number-label">Powierzchnia działki</div>
+  </div>
+  <div class="number-item">
+    <div class="number-value">4</div>
+    <div class="number-label">Segmenty do wyboru</div>
+  </div>
+  <div class="number-item">
+    <div class="number-value">2026</div>
+    <div class="number-label">Pierwszy odbiór</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="o-inwestycji">
+  <div class="section-inner">
+    <div class="section-label">O inwestycji</div>
+    <div class="section-title">Twój dom na kaszubskim wzgórzu</div>
+    <div class="section-subtitle">Nie szukasz mieszkania. Szukasz miejsca, w którym naprawdę chcesz żyć.</div>
+
+    <!-- LIFESTYLE INTRO -->
+    <div class="about-lifestyle">
+      <div class="about-lifestyle-text">
+        <p class="about-lead" data-content="opis_lifestyle">Wyobraź sobie poranek, w którym budzisz się w ciszy. Za oknem — kaszubska zieleń, śpiew ptaków i przestrzeń, która należy wyłącznie do Ciebie. Dzieci bawią się w ogrodzie, kawa stygnie na tarasie, a Ty nie musisz nigdzie pędzić. To nie wakacje. To Twoja codzienność w <strong>Zielonym Wzgórzu</strong>.</p>
+        <p data-content="opis_lifestyle2">Stworzyliśmy tę inwestycję z myślą o ludziach, którzy wiedzą, czego chcą — i nie godzą się na kompromisy. Którzy rozumieją, że prawdziwy komfort to nie tylko metraż, ale przestrzeń do życia, oddech natury za progiem i poczucie, że wreszcie są u siebie.</p>
+      </div>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="about-grid">
+      <div class="about-text">
+        <h3 class="about-heading">Kameralne osiedle, wielkie możliwości</h3>
+        <p data-content="opis_kameralne1"><strong>Zielone Wzgórze</strong> to zaledwie cztery segmenty w dwóch budynkach bliźniaczych — powstaje tutaj prawdziwe sąsiedztwo, a nie anonimowe osiedle. Każdy dom to ponad <strong>120 m² przemyślanej przestrzeni</strong> na dwóch kondygnacjach, z własnym ogrodem na działce ok. 500 m² i garażem w bryle budynku.</p>
+        <p data-content="opis_kameralne2">To rzadkość na dzisiejszym rynku — miejsce, w którym dostajesz jednocześnie <strong>spokój przedmieścia, bliskość natury i doskonały dojazd do Trójmiasta</strong>. Gdynia jest stąd 20 minut jazdy, Gdańsk — pół godziny. A wracając do domu, zamiast bloków i korków witają Cię kaszubskie wzgórza.</p>
+
+        <h3 class="about-heading">Kielno — miejsce, w którym się zakochasz</h3>
+        <p data-content="opis_kielno1">Kielno to jedna z najpiękniej położonych miejscowości gminy Szemud. Malownicze <strong>Jezioro Kielno</strong> z zagospodarowaną strefą rekreacyjną, okoliczne lasy idealne na weekendowe wyprawy, a jednocześnie pełna infrastruktura na co dzień — szkoła, przedszkole, sklepy, przychodnia.</p>
+        <p data-content="opis_kielno2">To miejsce, które doceniają rodziny z dziećmi, pary planujące przyszłość i wszyscy, którzy chcą zamienić miejski zgiełk na <strong>życie w swoim rytmie</strong> — bez rezygnowania z wygody i nowoczesności.</p>
+
+        <h3 class="about-heading">Architektura, która zachwyca</h3>
+        <p data-content="opis_architektura1">Nowoczesna bryła z dużymi przeszkleniami i dachem bez okapów nadaje budynkom <strong>elegancki, współczesny charakter</strong>, który wyróżnia się na tle okolicy. To nie jest kolejna „szeregówka" — to dom, na który sąsiedzi będą patrzeć z podziwem.</p>
+        <p data-content="opis_architektura2">Wewnątrz — trzy sypialnie, trzy łazienki, przestronny salon połączony z jadalnią i kuchnią oraz <strong>pełne piętro bez skosów</strong>, co daje swobodę aranżacji i poczucie prawdziwej przestrzeni na każdym metrze.</p>
+      </div>
+
+      <div class="about-image-stack">
+        <div class="about-image">
+          <img src="img/slide3.jpg" alt="Wizualizacja domów Zielone Wzgórze — widok z ogrodu" loading="lazy">
+          <div class="about-image-badge">
+            <div class="about-image-badge-value" data-content="cena" data-prefix="od ">od 849 000 zł</div>
+            <div class="about-image-badge-label">Cena segmentu z działką</div>
+          </div>
+        </div>
+        <div class="about-image about-image-second">
+          <img src="img/slide5.jpg" alt="Wizualizacja domów Zielone Wzgórze — elewacja frontowa" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- WHY US SECTION -->
+    <div class="about-why">
+      <h3 class="about-why-title">Dlaczego Zielone Wzgórze?</h3>
+      <p class="about-why-subtitle">Sześć powodów, dla których nasi klienci nie szukają dalej.</p>
+      <div class="about-features-grid">
+        <div class="about-feature-big">
+          <div class="about-feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/><path d="M9 20v-6h6v6"/><path d="M9 12h6"/></svg></div>
+          <div>
+            <h4>Solidna konstrukcja murowana</h4>
+            <p>Budynek wznoszony tradycyjną technologią z bloczków z betonu komórkowego, ocieplony wełną mineralną. Dom na pokolenia, nie na lata.</p>
+          </div>
+        </div>
+        <div class="about-feature-big">
+          <div class="about-feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21c0 0 0-9 6-13"/><path d="M17 4c0 0 1 8-5 13"/><path d="M7 4c0 0-1 8 5 13"/><path d="M12 4C12 4 8 2 4 4c0 0 2 6 8 6s8-6 8-6c-4-2-8 0-8 0z"/></svg></div>
+          <div>
+            <h4>Twój ogród, Twoje zasady</h4>
+            <p>Działka ok. 500 m² to nie miniaturowy skrawek trawnika — to realne miejsce na taras, grill, trampolinę, ogródek warzywny i strefę wypoczynku.</p>
+          </div>
+        </div>
+        <div class="about-feature-big">
+          <div class="about-feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="14" width="22" height="4" rx="2"/><path d="M5 14V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6"/><circle cx="7.5" cy="18" r="2.5"/><circle cx="16.5" cy="18" r="2.5"/></svg></div>
+          <div>
+            <h4>Garaż w bryle budynku</h4>
+            <p>Koniec z odśnieżaniem auta zimą i parkingowymi kompromisami. Garaż jest integralną częścią domu — wygoda na co dzień.</p>
+          </div>
+        </div>
+        <div class="about-feature-big">
+          <div class="about-feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <div>
+            <h4>Energooszczędność w standardzie</h4>
+            <p>Projekt w pełni zgodny z normami WT 2021. Niższe rachunki za ogrzewanie i świadomość, że Twój dom jest przyjazny środowisku.</p>
+          </div>
+        </div>
+        <div class="about-feature-big">
+          <div class="about-feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4-8-10V5l8-3 8 3v7c0 6-8 10-8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+          <div>
+            <h4>Sprawdzony deweloper</h4>
+            <p>MJ Invest Budownictwo to firma z doświadczeniem i lokalnymi korzeniami. Budujemy solidnie, terminowo i z pełną transparentnością kosztów.</p>
+          </div>
+        </div>
+        <div class="about-feature-big">
+          <div class="about-feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div>
+            <h4>Odbiór jeszcze w tym roku</h4>
+            <p>Pierwszy budynek gotowy jesienią 2026. Nie czekasz latami — za kilka miesięcy możesz urządzać się we własnym domu.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA BANNER -->
+    <div class="about-cta-banner">
+      <div class="about-cta-content">
+        <h3 data-content="cta_tytul">Zostały tylko 4 segmenty</h3>
+        <p data-content="cta_tekst">Kameralna inwestycja oznacza ograniczoną liczbę domów. Nie odkładaj decyzji — umów się na spotkanie i zobacz, gdzie powstaje Twoje nowe życie.</p>
+      </div>
+      <a href="#kontakt" class="btn-primary" style="background: var(--white); color: var(--forest-deep);">Umów spotkanie →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOUSE DETAILS -->
+<section class="house" id="domy">
+  <div class="section-inner">
+    <div class="section-label">Domy</div>
+    <div class="section-title">Przemyślany układ na 120 m²</div>
+    <div class="section-subtitle">Dwie kondygnacje, trzy sypialnie, trzy łazienki i przestronny salon z jadalnią — dom zaprojektowany z myślą o wygodzie 4-osobowej rodziny.</div>
+
+    <div class="house-cards">
+      <div class="house-card">
+        <div class="house-card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3>Parter</h3>
+        <p>Otwarty salon z jadalnią i aneksem kuchennym stanowi serce domu. <span class="highlight">Duże przeszklenia</span> wpuszczają naturalne światło i łączą wnętrze z ogrodem. Na parterze znajdziesz też wiatrołap, WC dla gości i garaż.</p>
+      </div>
+      <div class="house-card">
+        <div class="house-card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h2a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H2V12z"/><path d="M22 12h-2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2V12z"/><path d="M6 12V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v5"/><path d="M2 20h20"/><path d="M4 12h16"/></svg></div>
+        <h3>Piętro</h3>
+        <p>Strefa prywatna z <span class="highlight">trzema sypialniami</span> — główna z własną garderobą i łazienką. Druga łazienka dla domowników i gości. Pełne piętro bez skosów daje swobodę aranżacji.</p>
+      </div>
+      <div class="house-card">
+        <div class="house-card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c-4 0-8-2-8-6 0-3 2-5 4-7l4-5 4 5c2 2 4 4 4 7 0 4-4 6-8 6z"/><path d="M12 22V12"/><path d="M8 18c2-1 3-3 4-6"/><path d="M16 18c-2-1-3-3-4-6"/></svg></div>
+        <h3>Działka i otoczenie</h3>
+        <p>Każdy segment dysponuje <span class="highlight">działką ok. 500 m²</span> — wystarczającą na ogród, taras, miejsce zabaw dla dzieci i strefę relaksu. Otoczenie pełne zieleni i spokoju.</p>
+      </div>
+    </div>
+
+    <!-- FLOOR PLANS -->
+    <div class="floor-plans">
+      <div class="floor-plan-card">
+        <div class="floor-plan-header">
+          <h3>Parter</h3>
+          <span>~63 m²</span>
+        </div>
+        <div class="floor-plan-rooms">
+          <div class="floor-plan-room"><span>Wiatrołap</span><span>4,71 m²</span></div>
+          <div class="floor-plan-room"><span>Hall ze schodami</span><span>9,81 m²</span></div>
+          <div class="floor-plan-room"><span>WC</span><span>2,89 m²</span></div>
+          <div class="floor-plan-room"><span>Kuchnia</span><span>8,14 m²</span></div>
+          <div class="floor-plan-room"><span>Pokój dzienny z jadalnią</span><span>20,42 m²</span></div>
+          <div class="floor-plan-room"><span>Garaż</span><span>17,43 m²</span></div>
+        </div>
+      </div>
+      <div class="floor-plan-card">
+        <div class="floor-plan-header">
+          <h3>Piętro</h3>
+          <span>~59 m²</span>
+        </div>
+        <div class="floor-plan-rooms">
+          <div class="floor-plan-room"><span>Korytarz</span><span>7,69 m²</span></div>
+          <div class="floor-plan-room"><span>Pokój I</span><span>10,26 m²</span></div>
+          <div class="floor-plan-room"><span>Pokój II</span><span>13,11 m²</span></div>
+          <div class="floor-plan-room"><span>Łazienka</span><span>6,07 m²</span></div>
+          <div class="floor-plan-room"><span>Łazienka (przy sypialni)</span><span>4,22 m²</span></div>
+          <div class="floor-plan-room"><span>Sypialnia główna</span><span>14,02 m²</span></div>
+          <div class="floor-plan-room"><span>Garderoba</span><span>4,07 m²</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location" id="lokalizacja">
+  <div class="section-inner">
+    <div class="section-label">Lokalizacja</div>
+    <div class="section-title">Kielno — kaszubski spokój u bram Trójmiasta</div>
+    <div class="section-subtitle">Wieś z bogatą historią i doskonałym połączeniem z największymi miastami Pomorza.</div>
+
+    <div class="location-grid">
+      <div class="location-advantages">
+        <div class="location-advantage">
+          <div class="location-advantage-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="8" height="16" rx="1"/><rect x="9" y="2" width="8" height="20" rx="1"/><rect x="17" y="9" width="6" height="13" rx="1"/><path d="M4 10h2"/><path d="M4 14h2"/><path d="M12 6h2"/><path d="M12 10h2"/><path d="M12 14h2"/><path d="M20 13h1"/></svg></div>
+          <div>
+            <h4>Bliskość Trójmiasta</h4>
+            <p>Gdynia ok. 20 min, Gdańsk ok. 30 min samochodem. Wejherowo w zasięgu 15 min.</p>
+          </div>
+        </div>
+        <div class="location-advantage">
+          <div class="location-advantage-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c2-3 4-4 6-4s4 3 6 0 4-4 6-4 4 1 6 4"/><path d="M2 17c2-3 4-4 6-4s4 3 6 0 4-4 6-4 4 1 6 4"/><path d="M2 22c2-3 4-4 6-4s4 3 6 0 4-4 6-4 4 1 6 4"/></svg></div>
+          <div>
+            <h4>Jezioro Kielno</h4>
+            <p>Malownicze jezioro z zagospodarowaną strefą rekreacyjną i skateparkiem tuż obok.</p>
+          </div>
+        </div>
+        <div class="location-advantage">
+          <div class="location-advantage-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v18"/><path d="M2 22h20"/><path d="M8 6h2"/><path d="M14 6h2"/><path d="M8 10h2"/><path d="M14 10h2"/><path d="M8 14h2"/><path d="M14 14h2"/><rect x="9" y="18" width="6" height="4"/></svg></div>
+          <div>
+            <h4>Infrastruktura na miejscu</h4>
+            <p>Szkoła, przedszkole, sklepy, kościół i przychodnia — wszystko w zasięgu spaceru.</p>
+          </div>
+        </div>
+        <div class="location-advantage">
+          <div class="location-advantage-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8"/><path d="M5 12l7-10 7 10"/><path d="M7 17l5-7 5 7"/><path d="M9 22l3-5 3 5"/></svg></div>
+          <div>
+            <h4>Otoczenie natury</h4>
+            <p>Kaszubskie lasy, wzgórza i czyste powietrze. Idealne miejsce na rodzinne spacery i aktywny wypoczynek.</p>
+          </div>
+        </div>
+        <div class="location-advantage">
+          <div class="location-advantage-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22l4-16"/><path d="M15 6l4 16"/><path d="M12 8v2"/><path d="M12 14v2"/><path d="M12 20v2"/></svg></div>
+          <div>
+            <h4>Dobra komunikacja</h4>
+            <p>Droga wojewódzka 224 i bliskość obwodnicy Trójmiasta zapewniają wygodny dojazd w każdym kierunku.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="location-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2000!2d18.330208!3d54.452141!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spl!2spl!4v1700000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="cennik">
+  <div class="section-inner">
+    <div class="section-label">Cennik i dostępność</div>
+    <div class="section-title">Wybierz swój segment</div>
+    <div class="section-subtitle">Dwa budynki, cztery niezależne segmenty. Każdy z własną działką i garażem.</div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-card-badge" data-content="termin_budynek1" data-prefix="Odbiór ">Odbiór X–XI 2026</div>
+        <h3>Budynek I</h3>
+        <p class="pricing-card-term">2 segmenty — pierwszy termin oddania</p>
+        <div class="pricing-card-price" data-content="cena">849 000 zł</div>
+        <p class="pricing-card-price-note">Cena za segment | ok. <span data-content="cena_m2">7 075 zł/m²</span></p>
+        <ul class="pricing-card-features">
+          <li>Powierzchnia użytkowa ~120 m²</li>
+          <li>Działka ~500 m²</li>
+          <li>3 sypialnie, 3 łazienki</li>
+          <li>Garaż w bryle budynku</li>
+          <li>Stan deweloperski</li>
+          <li>Pełne piętro bez skosów</li>
+        </ul>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-card-badge" data-content="termin_budynek2" data-prefix="Odbiór ">Odbiór — połowa 2027</div>
+        <h3>Budynek II</h3>
+        <p class="pricing-card-term">2 segmenty — drugi termin oddania</p>
+        <div class="pricing-card-price" data-content="cena">849 000 zł</div>
+        <p class="pricing-card-price-note">Cena za segment | ok. <span data-content="cena_m2">7 075 zł/m²</span></p>
+        <ul class="pricing-card-features">
+          <li>Powierzchnia użytkowa ~120 m²</li>
+          <li>Działka ~500 m²</li>
+          <li>3 sypialnie, 3 łazienki</li>
+          <li>Garaż w bryle budynku</li>
+          <li>Stan deweloperski</li>
+          <li>Pełne piętro bez skosów</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="section-inner">
+    <div class="section-label" style="justify-content: center;">Harmonogram</div>
+    <div class="section-title" style="text-align: center;">Terminy realizacji</div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <h4>Teraz</h4>
+        <p>Trwa sprzedaż i budowa. Rezerwuj segment już dziś.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <h4 data-content="termin_budynek1">X–XI 2026</h4>
+        <p>Odbiór budynku I. Pierwsi mieszkańcy Zielonego Wzgórza.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <h4 data-content="termin_budynek2">Połowa 2027</h4>
+        <p>Odbiór budynku II. Inwestycja zakończona.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="kontakt">
+  <div class="section-inner">
+    <div class="section-label">Kontakt</div>
+    <div class="section-title">Porozmawiajmy o Twoim domu</div>
+    <div class="section-subtitle">Zapraszamy do kontaktu. Chętnie odpowiemy na pytania, umówimy prezentację i pomożemy w wyborze segmentu.</div>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-card">
+          <div class="contact-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div>
+            <h4>Telefon</h4>
+            <a href="tel:+48733835205" data-content="telefon" data-phone>+48 733 835 205</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div>
+            <h4>Lokalizacja inwestycji</h4>
+            <p>Kielno, gmina Szemud<br>powiat wejherowski, woj. pomorskie</p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/></svg></div>
+          <div>
+            <h4>Deweloper</h4>
+            <p>MJ Invest Budownictwo Sp. z o.o.<br>ul. Różana 21A, 80-297 Banino</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <h3>Wyślij zapytanie</h3>
+        <p>Zostaw dane, oddzwonimy w ciągu 24 godzin.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Imię i nazwisko</label>
+            <input type="text" placeholder="Jan Kowalski">
+          </div>
+          <div class="form-group">
+            <label>Telefon</label>
+            <input type="tel" placeholder="+48 ___-___-___">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Adres e-mail</label>
+          <input type="email" placeholder="jan@przyklad.pl">
+        </div>
+        <div class="form-group">
+          <label>Wiadomość</label>
+          <textarea placeholder="Jestem zainteresowany segmentem w budynku I / II. Proszę o kontakt."></textarea>
+        </div>
+        <button class="form-submit">Wyślij zapytanie</button>
+        <p class="form-note">Administratorem danych jest MJ Invest Budownictwo Sp. z o.o. Dane przetwarzane w celu obsługi zapytania. Szczegóły w polityce prywatności.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEVELOPER -->
+<div class="developer">
+  <div class="developer-inner">
+    <div class="developer-info">
+      <span>Deweloper</span>
+      <span>MJ Invest Budownictwo Sp. z o.o. | ul. Różana 21A, 80-297 Banino</span>
+    </div>
+    <p class="developer-disclaimer">Informacja nie stanowi oferty w rozumieniu art. 66 Kodeksu cywilnego. Wizualizacje mają charakter poglądowy i mogą ulec zmianie na etapie realizacji.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Zielone Wzgórze — MJ Invest Budownictwo Sp. z o.o. Wszelkie prawa zastrzeżone.</p>
+</footer>
+
+<script>
+// === NAV SCROLL ===
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// === HERO SLIDER ===
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.hero-dot');
+let current = 0;
+let interval;
+
+function loadSlide(n) {
+  const slide = slides[n];
+  const bg = slide.dataset.bg;
+  if (bg) {
+    slide.style.backgroundImage = `url('${bg}')`;
+    delete slide.dataset.bg;
+  }
+}
+
+function goToSlide(n) {
+  slides[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  current = n;
+  loadSlide(current);
+  slides[current].classList.add('active');
+  dots[current].classList.add('active');
+  resetInterval();
+}
+
+function nextSlide() {
+  goToSlide((current + 1) % slides.length);
+}
+
+function resetInterval() {
+  clearInterval(interval);
+  interval = setInterval(nextSlide, 5000);
+}
+
+// Preload slide 2 after page loads so first transition is smooth
+window.addEventListener('load', () => { loadSlide(1); });
+
+resetInterval();
+
+// === MOBILE MENU ===
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Close mobile menu on background click (not on links)
+document.getElementById('mobileMenu').addEventListener('click', function(e) {
+  if (e.target === this) toggleMenu();
+});
+
+// Close mobile menu on swipe down
+(function() {
+  let touchStartY = 0;
+  const menu = document.getElementById('mobileMenu');
+  menu.addEventListener('touchstart', function(e) { touchStartY = e.touches[0].clientY; });
+  menu.addEventListener('touchend', function(e) {
+    if (e.changedTouches[0].clientY - touchStartY > 80) toggleMenu();
+  });
+})();
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.getElementById('mobileMenu').classList.contains('open')) toggleMenu();
+});
+
+// === SCROLL ANIMATIONS ===
+const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.house-card, .location-advantage, .pricing-card, .contact-card, .floor-plan-card, .timeline-item, .about-feature-big').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(25px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+
+// Stagger timeline items
+document.querySelectorAll('.timeline-item').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 0.15}s`;
+});
+
+document.querySelectorAll('.house-card').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 0.1}s`;
+});
+
+document.querySelectorAll('.location-advantage').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 0.1}s`;
+});
+
+document.querySelectorAll('.about-feature-big').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 0.08}s`;
+});
+
+// === CONTENT LOADER ===
+(async function() {
+  try {
+    const res = await fetch('content.json?v=' + Date.now());
+    if (!res.ok) return;
+    const c = await res.json();
+    document.querySelectorAll('[data-content]').forEach(el => {
+      const key = el.dataset.content;
+      if (c[key] === undefined || c[key] === '') return;
+      const prefix = el.dataset.prefix || '';
+      el.innerHTML = prefix + c[key];
+      // Update phone href
+      if (el.hasAttribute('data-phone')) {
+        el.href = 'tel:' + c[key].replace(/\s/g, '');
+      }
+    });
+  } catch(e) { /* fallback to hardcoded content */ }
+})();
+</script>
+
+</body>
+</html>
