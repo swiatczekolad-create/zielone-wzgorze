@@ -21,26 +21,19 @@
   --green: #4CAF50;
 }
 body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
-
-/* LOGIN */
 .login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
 .login-box { background: var(--white); padding: 48px; border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.06); text-align: center; max-width: 420px; width: 100%; }
 .login-box h1 { font-size: 1.4rem; font-weight: 600; color: var(--charcoal); margin-bottom: 8px; }
 .login-box > p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 24px; line-height: 1.5; }
-.login-field { margin-bottom: 12px; text-align: left; }
-.login-field label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
-.login-field input { width: 100%; padding: 14px 18px; border: 1.5px solid var(--cream-dark); border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.3s ease; }
-.login-field input:focus { border-color: var(--forest); }
-.login-box button { width: 100%; padding: 14px; background: var(--forest); color: var(--white); border: none; border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 8px; transition: background 0.3s ease; }
+.login-box .spinner { width: 32px; height: 32px; border: 3px solid var(--cream-dark); border-top-color: var(--forest); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 20px auto; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.login-box input { width: 100%; padding: 14px 18px; border: 1.5px solid var(--cream-dark); border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.3s ease; }
+.login-box input:focus { border-color: var(--forest); }
+.login-box button { width: 100%; padding: 14px; background: var(--forest); color: var(--white); border: none; border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 12px; transition: background 0.3s ease; }
 .login-box button:hover { background: var(--forest-deep); }
 .login-error { color: var(--red); font-size: 0.85rem; margin-top: 12px; display: none; }
-.login-hint { font-size: 0.78rem; color: var(--text-light); margin-top: 20px; line-height: 1.5; padding-top: 16px; border-top: 1px solid var(--cream-dark); }
 .login-step { display: none; }
 .login-step.active { display: block; }
-.login-reset { font-size: 0.8rem; color: var(--text-light); margin-top: 16px; cursor: pointer; text-decoration: underline; }
-.login-reset:hover { color: var(--forest); }
-
-/* ADMIN PANEL */
 .admin-panel { display: none; }
 .admin-header { background: var(--forest-deep); padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
 .admin-header h1 { color: var(--white); font-size: 1.1rem; font-weight: 600; }
@@ -84,36 +77,18 @@ body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(-
   <div class="login-box">
     <h1>Zielone Wzgórze</h1>
 
-    <!-- STEP 1: First-time setup (token + set password) -->
-    <div class="login-step" id="stepSetup">
-      <p>Pierwsze logowanie. Wklej klucz otrzymany od administratora i ustaw własne hasło.</p>
-      <div class="login-field">
-        <label>Klucz dostępu</label>
-        <input type="password" id="setupToken" placeholder="Wklej klucz od administratora">
-      </div>
-      <div class="login-field">
-        <label>Ustaw swoje hasło</label>
-        <input type="password" id="setupPassword" placeholder="Min. 4 znaki, np. kielno2026">
-      </div>
-      <div class="login-field">
-        <label>Powtórz hasło</label>
-        <input type="password" id="setupPassword2" placeholder="Powtórz hasło" onkeydown="if(event.key==='Enter')setupAccount()">
-      </div>
-      <button onclick="setupAccount()">Zapisz i zaloguj</button>
-      <p class="login-error" id="setupError"></p>
-      <p class="login-hint">Klucz potrzebujesz tylko raz. Następnym razem logujesz się swoim hasłem.</p>
+    <!-- Auto-login spinner -->
+    <div class="login-step" id="stepLoading">
+      <p>Logowanie...</p>
+      <div class="spinner"></div>
     </div>
 
-    <!-- STEP 2: Normal login (password only) -->
-    <div class="login-step" id="stepLogin">
-      <p>Wpisz hasło, aby zarządzać treścią strony.</p>
-      <div class="login-field">
-        <label>Hasło</label>
-        <input type="password" id="loginPassword" placeholder="Twoje hasło" onkeydown="if(event.key==='Enter')loginWithPassword()">
-      </div>
-      <button onclick="loginWithPassword()">Zaloguj się</button>
-      <p class="login-error" id="loginError"></p>
-      <p class="login-reset" onclick="resetAccess()">Nie pamiętam hasła / zmień klucz</p>
+    <!-- Manual token paste (fallback) -->
+    <div class="login-step" id="stepManual">
+      <p>Wklej klucz dostępu otrzymany od administratora strony.</p>
+      <input type="password" id="manualToken" placeholder="Wklej klucz dostępu" onkeydown="if(event.key==='Enter')manualLogin()">
+      <button onclick="manualLogin()">Zaloguj się</button>
+      <p class="login-error" id="loginError">Nieprawidłowy klucz. Sprawdź i spróbuj ponownie.</p>
     </div>
 
   </div>
@@ -186,139 +161,70 @@ body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(-
 <script>
 var REPO = 'swiatczekolad-create/zielone-wzgorze';
 var FILE = 'content.json';
-var STORAGE_KEY = 'zw_admin';
+var STORAGE_KEY = 'zw_tk';
 var fileSha = '';
 var ghToken = '';
 
-// === CRYPTO HELPERS (encrypt/decrypt token with password) ===
-async function deriveKey(password, salt) {
-  var enc = new TextEncoder();
-  var keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
-  return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: salt, iterations: 100000, hash: 'SHA-256' }, keyMaterial, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
-}
-
-async function encryptToken(token, password) {
-  var salt = crypto.getRandomValues(new Uint8Array(16));
-  var iv = crypto.getRandomValues(new Uint8Array(12));
-  var key = await deriveKey(password, salt);
-  var enc = new TextEncoder();
-  var encrypted = await crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, key, enc.encode(token));
-  var result = { s: btoa(String.fromCharCode.apply(null, salt)), i: btoa(String.fromCharCode.apply(null, iv)), d: btoa(String.fromCharCode.apply(null, new Uint8Array(encrypted))) };
-  return JSON.stringify(result);
-}
-
-async function decryptToken(stored, password) {
-  var data = JSON.parse(stored);
-  var salt = new Uint8Array(atob(data.s).split('').map(function(c){return c.charCodeAt(0)}));
-  var iv = new Uint8Array(atob(data.i).split('').map(function(c){return c.charCodeAt(0)}));
-  var encrypted = new Uint8Array(atob(data.d).split('').map(function(c){return c.charCodeAt(0)}));
-  var key = await deriveKey(password, salt);
-  var decrypted = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: iv }, key, encrypted);
-  return new TextDecoder().decode(decrypted);
-}
-
-// === INIT: check if account exists ===
-function init() {
-  var stored = localStorage.getItem(STORAGE_KEY);
-  if (stored) {
-    document.getElementById('stepLogin').classList.add('active');
-  } else {
-    document.getElementById('stepSetup').classList.add('active');
-  }
-}
-
-// === STEP 1: First-time setup ===
-async function setupAccount() {
-  var token = document.getElementById('setupToken').value.trim();
-  var pw1 = document.getElementById('setupPassword').value;
-  var pw2 = document.getElementById('setupPassword2').value;
-  var errEl = document.getElementById('setupError');
-  errEl.style.display = 'none';
-
-  if (!token) { showSetupError('Wklej klucz dostępu.'); return; }
-  if (pw1.length < 4) { showSetupError('Hasło musi mieć min. 4 znaki.'); return; }
-  if (pw1 !== pw2) { showSetupError('Hasła się nie zgadzają.'); return; }
-
-  // Validate token against GitHub
+async function validateAndLogin(token) {
   try {
     var res = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + FILE, {
       headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
     });
-    if (!res.ok) { showSetupError('Klucz jest nieprawidłowy lub nie ma dostępu.'); return; }
-
-    // Encrypt and store token
-    var encrypted = await encryptToken(token, pw1);
-    localStorage.setItem(STORAGE_KEY, encrypted);
-
-    // Login
-    ghToken = token;
-    var data = await res.json();
-    fileSha = data.sha;
-    showAdmin(data);
-  } catch(e) {
-    showSetupError('Błąd połączenia. Spróbuj ponownie.');
-  }
-}
-
-function showSetupError(msg) {
-  var el = document.getElementById('setupError');
-  el.textContent = msg;
-  el.style.display = 'block';
-}
-
-// === STEP 2: Login with password ===
-async function loginWithPassword() {
-  var pw = document.getElementById('loginPassword').value;
-  var errEl = document.getElementById('loginError');
-  errEl.style.display = 'none';
-
-  if (!pw) return;
-
-  var stored = localStorage.getItem(STORAGE_KEY);
-  if (!stored) { errEl.textContent = 'Brak zapisanego klucza. Użyj pierwszego logowania.'; errEl.style.display = 'block'; return; }
-
-  try {
-    var token = await decryptToken(stored, pw);
-
-    // Validate token
-    var res = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + FILE, {
-      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
-    });
-
     if (res.ok) {
       ghToken = token;
+      localStorage.setItem(STORAGE_KEY, token);
+      // Clean token from URL without reload
+      if (window.location.hash) history.replaceState(null, '', window.location.pathname);
       var data = await res.json();
       fileSha = data.sha;
       showAdmin(data);
-    } else {
-      errEl.textContent = 'Klucz wygasł. Użyj „Nie pamiętam hasła" i wklej nowy klucz.';
-      errEl.style.display = 'block';
+      return true;
     }
-  } catch(e) {
-    errEl.textContent = 'Nieprawidłowe hasło.';
-    errEl.style.display = 'block';
-    document.getElementById('loginPassword').value = '';
-  }
+  } catch(e) {}
+  return false;
 }
 
-// === RESET ===
-function resetAccess() {
-  if (confirm('Usunąć zapisany klucz? Będziesz musiał wkleić go ponownie.')) {
+async function init() {
+  // 1. Check URL hash for token
+  var hash = window.location.hash;
+  if (hash) {
+    var match = hash.match(/[#&]klucz=([^&]+)/);
+    if (match) {
+      document.getElementById('stepLoading').classList.add('active');
+      var ok = await validateAndLogin(decodeURIComponent(match[1]));
+      if (ok) return;
+      document.getElementById('stepLoading').classList.remove('active');
+    }
+  }
+
+  // 2. Check localStorage
+  var stored = localStorage.getItem(STORAGE_KEY);
+  if (stored) {
+    document.getElementById('stepLoading').classList.add('active');
+    var ok = await validateAndLogin(stored);
+    if (ok) return;
+    // Token expired/invalid — clear and show manual
     localStorage.removeItem(STORAGE_KEY);
-    document.getElementById('stepLogin').classList.remove('active');
-    document.getElementById('stepSetup').classList.add('active');
-    document.getElementById('loginError').style.display = 'none';
+    document.getElementById('stepLoading').classList.remove('active');
+  }
+
+  // 3. Show manual login
+  document.getElementById('stepManual').classList.add('active');
+}
+
+async function manualLogin() {
+  var token = document.getElementById('manualToken').value.trim();
+  if (!token) return;
+  var ok = await validateAndLogin(token);
+  if (!ok) {
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('manualToken').value = '';
   }
 }
 
-// === SHOW ADMIN ===
 function showAdmin(data) {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('adminPanel').style.display = 'block';
-  fillForm(data);
-}
-
-function fillForm(data) {
   try {
     var content = JSON.parse(atob(data.content));
     document.querySelectorAll('[data-key]').forEach(function(el) {
@@ -333,13 +239,13 @@ function fillForm(data) {
 function logout() {
   ghToken = '';
   fileSha = '';
+  localStorage.removeItem(STORAGE_KEY);
   document.getElementById('adminPanel').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'flex';
-  document.getElementById('loginPassword').value = '';
+  document.querySelectorAll('.login-step').forEach(function(el) { el.classList.remove('active'); });
+  document.getElementById('stepManual').classList.add('active');
+  document.getElementById('manualToken').value = '';
   document.getElementById('loginError').style.display = 'none';
-  // Keep stored token — user just logs back in with password
-  document.getElementById('stepLogin').classList.add('active');
-  document.getElementById('stepSetup').classList.remove('active');
 }
 
 function showStatus(msg, type) {
