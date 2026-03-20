@@ -1288,7 +1288,14 @@ footer p {
 <div id="adminBar" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#1A3A26;padding:10px 24px;text-align:center;font-family:'Outfit',sans-serif;font-size:0.85rem;height:42px;">
   <a href="/admin.html" style="color:#B8D4BB;text-decoration:none;font-weight:500;">← Wróć do panelu admina</a>
 </div>
-<script>if(location.search.indexOf('admin')!==-1){document.getElementById('adminBar').style.display='block';document.documentElement.style.setProperty('--admin-offset','42px');}else{document.documentElement.style.setProperty('--admin-offset','0px');}</script>
+<div id="sentBar" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#4CAF50;padding:14px 24px;text-align:center;font-family:'Outfit',sans-serif;font-size:0.95rem;color:#fff;font-weight:500;">
+  Dziękujemy za wiadomość! Odezwiemy się w ciągu 24 godzin.
+</div>
+<script>
+if(location.search.indexOf('admin')!==-1){document.getElementById('adminBar').style.display='block';document.documentElement.style.setProperty('--admin-offset','42px');}
+else{document.documentElement.style.setProperty('--admin-offset','0px');}
+if(location.search.indexOf('wyslano')!==-1){document.getElementById('sentBar').style.display='block';setTimeout(function(){document.getElementById('sentBar').style.display='none';history.replaceState(null,'',location.pathname);},5000);}
+</script>
 
 <!-- NAVIGATION -->
 <nav id="navbar">
@@ -1698,25 +1705,32 @@ footer p {
       <div class="contact-form">
         <h3 data-content="formularz_tytul">Wyślij zapytanie</h3>
         <p data-content="formularz_podtytul">Zostaw dane, oddzwonimy w ciągu 24 godzin.</p>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Imię i nazwisko</label>
-            <input type="text" placeholder="Jan Kowalski">
+        <form action="https://formsubmit.co/mjinvestbudownictwo@o2.pl" method="POST">
+          <input type="hidden" name="_subject" value="Nowe zapytanie ze strony Zielone Wzgórze">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://zielonewzgorzedomki.pl/?wyslano">
+          <input type="text" name="_honey" style="display:none">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Imię i nazwisko</label>
+              <input type="text" name="Imię i nazwisko" placeholder="Jan Kowalski" required>
+            </div>
+            <div class="form-group">
+              <label>Telefon</label>
+              <input type="tel" name="Telefon" placeholder="+48 ___-___-___" required>
+            </div>
           </div>
           <div class="form-group">
-            <label>Telefon</label>
-            <input type="tel" placeholder="+48 ___-___-___">
+            <label>Adres e-mail</label>
+            <input type="email" name="Email" placeholder="jan@przyklad.pl" required>
           </div>
-        </div>
-        <div class="form-group">
-          <label>Adres e-mail</label>
-          <input type="email" placeholder="jan@przyklad.pl">
-        </div>
-        <div class="form-group">
-          <label>Wiadomość</label>
-          <textarea placeholder="Jestem zainteresowany segmentem w budynku I / II. Proszę o kontakt."></textarea>
-        </div>
-        <button class="form-submit">Wyślij zapytanie</button>
+          <div class="form-group">
+            <label>Wiadomość</label>
+            <textarea name="Wiadomość" placeholder="Jestem zainteresowany segmentem w budynku I / II. Proszę o kontakt."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Wyślij zapytanie</button>
+        </form>
         <p class="form-note">Administratorem danych jest MJ Invest Budownictwo Sp. z o.o. Dane przetwarzane w celu obsługi zapytania. Szczegóły w polityce prywatności.</p>
       </div>
     </div>
