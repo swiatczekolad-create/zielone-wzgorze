@@ -148,6 +148,13 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
       <div class="field-row"><div class="field"><label>Karta Działka — tytuł</label><input type="text" data-key="karta_dzialka_tytul"></div><div class="field"><label>Karta Działka — opis</label><textarea data-key="karta_dzialka_tekst"></textarea></div></div>
     </div></div>
 
+    <div class="admin-section"><h2 onclick="this.parentElement.classList.toggle('collapsed')">Rozkład pomieszczeń</h2><div class="section-body">
+      <div class="field-row"><div class="field"><label>Parter — nazwa</label><input type="text" data-key="plan_parter_nazwa"></div><div class="field"><label>Parter — metraż</label><input type="text" data-key="plan_parter_metraz"></div></div>
+      <div class="field"><label>Pokoje parteru <span class="hint">(format: Nazwa | metraż, każdy pokój w nowej linii)</span></label><textarea data-key="plan_parter_pokoje" style="min-height:140px"></textarea></div>
+      <div class="field-row"><div class="field"><label>Piętro — nazwa</label><input type="text" data-key="plan_pietro_nazwa"></div><div class="field"><label>Piętro — metraż</label><input type="text" data-key="plan_pietro_metraz"></div></div>
+      <div class="field"><label>Pokoje piętra <span class="hint">(format: Nazwa | metraż, każdy pokój w nowej linii)</span></label><textarea data-key="plan_pietro_pokoje" style="min-height:160px"></textarea></div>
+    </div></div>
+
     <div class="admin-section"><h2 onclick="this.parentElement.classList.toggle('collapsed')">Lokalizacja</h2><div class="section-body">
       <div class="field"><label>Etykieta</label><input type="text" data-key="sekcja_lokalizacja_label"></div>
       <div class="field"><label>Tytuł</label><input type="text" data-key="sekcja_lokalizacja_tytul"></div>
@@ -165,6 +172,8 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
       <div class="field"><label>Podtytuł</label><textarea data-key="sekcja_cennik_podtytul"></textarea></div>
       <div class="field-row"><div class="field"><label>Cena segmentu</label><input type="text" data-key="cena"></div><div class="field"><label>Cena za m²</label><input type="text" data-key="cena_m2"></div></div>
       <div class="field-row"><div class="field"><label>Termin — Budynek I</label><input type="text" data-key="termin_budynek1"></div><div class="field"><label>Termin — Budynek II</label><input type="text" data-key="termin_budynek2"></div></div>
+      <div class="field-row"><div class="field"><label>Budynek I — nazwa</label><input type="text" data-key="budynek1_nazwa"></div><div class="field"><label>Budynek I — opis</label><input type="text" data-key="budynek1_opis"></div></div>
+      <div class="field-row"><div class="field"><label>Budynek II — nazwa</label><input type="text" data-key="budynek2_nazwa"></div><div class="field"><label>Budynek II — opis</label><input type="text" data-key="budynek2_opis"></div></div>
       <div class="field"><label>Cechy segmentu <span class="hint">(każda w nowej linii)</span></label><textarea data-key="cennik_cechy" style="min-height:120px"></textarea></div>
     </div></div>
 

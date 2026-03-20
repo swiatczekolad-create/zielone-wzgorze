@@ -1510,10 +1510,10 @@ footer p {
     <div class="floor-plans">
       <div class="floor-plan-card">
         <div class="floor-plan-header">
-          <h3>Parter</h3>
-          <span>~63 m²</span>
+          <h3 data-content="plan_parter_nazwa">Parter</h3>
+          <span data-content="plan_parter_metraz">~63 m²</span>
         </div>
-        <div class="floor-plan-rooms">
+        <div class="floor-plan-rooms" id="rooms-parter">
           <div class="floor-plan-room"><span>Wiatrołap</span><span>4,71 m²</span></div>
           <div class="floor-plan-room"><span>Hall ze schodami</span><span>9,81 m²</span></div>
           <div class="floor-plan-room"><span>WC</span><span>2,89 m²</span></div>
@@ -1524,10 +1524,10 @@ footer p {
       </div>
       <div class="floor-plan-card">
         <div class="floor-plan-header">
-          <h3>Piętro</h3>
-          <span>~59 m²</span>
+          <h3 data-content="plan_pietro_nazwa">Piętro</h3>
+          <span data-content="plan_pietro_metraz">~59 m²</span>
         </div>
-        <div class="floor-plan-rooms">
+        <div class="floor-plan-rooms" id="rooms-pietro">
           <div class="floor-plan-room"><span>Korytarz</span><span>7,69 m²</span></div>
           <div class="floor-plan-room"><span>Pokój I</span><span>10,26 m²</span></div>
           <div class="floor-plan-room"><span>Pokój II</span><span>13,11 m²</span></div>
@@ -1604,8 +1604,8 @@ footer p {
     <div class="pricing-grid">
       <div class="pricing-card">
         <div class="pricing-card-badge" data-content="termin_budynek1" data-prefix="Odbiór ">Odbiór X–XI 2026</div>
-        <h3>Budynek I</h3>
-        <p class="pricing-card-term">2 segmenty — pierwszy termin oddania</p>
+        <h3 data-content="budynek1_nazwa">Budynek I</h3>
+        <p class="pricing-card-term" data-content="budynek1_opis">2 segmenty — pierwszy termin oddania</p>
         <div class="pricing-card-price" data-content="cena">849 000 zł</div>
         <p class="pricing-card-price-note">Cena za segment | ok. <span data-content="cena_m2">7 075 zł/m²</span></p>
         <ul class="pricing-card-features">
@@ -1620,8 +1620,8 @@ footer p {
 
       <div class="pricing-card">
         <div class="pricing-card-badge" data-content="termin_budynek2" data-prefix="Odbiór ">Odbiór — połowa 2027</div>
-        <h3>Budynek II</h3>
-        <p class="pricing-card-term">2 segmenty — drugi termin oddania</p>
+        <h3 data-content="budynek2_nazwa">Budynek II</h3>
+        <p class="pricing-card-term" data-content="budynek2_opis">2 segmenty — drugi termin oddania</p>
         <div class="pricing-card-price" data-content="cena">849 000 zł</div>
         <p class="pricing-card-price-note">Cena za segment | ok. <span data-content="cena_m2">7 075 zł/m²</span></p>
         <ul class="pricing-card-features">
@@ -1870,6 +1870,18 @@ document.querySelectorAll('.about-feature-big').forEach((el, i) => {
         ul.innerHTML = items.map(i => '<li>' + i + '</li>').join('');
       });
     }
+    // Floor plan rooms
+    ['parter', 'pietro'].forEach(floor => {
+      const key = 'plan_' + floor + '_pokoje';
+      const el = document.getElementById('rooms-' + floor);
+      if (c[key] && el) {
+        const rows = c[key].split('\n').filter(l => l.trim());
+        el.innerHTML = rows.map(r => {
+          const parts = r.split('|').map(s => s.trim());
+          return '<div class="floor-plan-room"><span>' + parts[0] + '</span><span>' + (parts[1]||'') + '</span></div>';
+        }).join('');
+      }
+    });
   } catch(e) { /* fallback to hardcoded content */ }
 })();
 </script>
