@@ -41,7 +41,8 @@ body {
 /* ===== NAVIGATION ===== */
 nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: var(--admin-offset, 0px);
+  left: 0; right: 0;
   z-index: 1000;
   padding: 0 40px;
   height: 72px;
@@ -1283,10 +1284,10 @@ footer p {
 <body>
 
 <!-- ADMIN BAR (only with ?admin) -->
-<div id="adminBar" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#1A3A26;padding:10px 24px;text-align:center;font-family:'Outfit',sans-serif;font-size:0.85rem;">
+<div id="adminBar" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#1A3A26;padding:10px 24px;text-align:center;font-family:'Outfit',sans-serif;font-size:0.85rem;height:42px;">
   <a href="/admin.html" style="color:#B8D4BB;text-decoration:none;font-weight:500;">← Wróć do panelu admina</a>
 </div>
-<script>if(location.search.indexOf('admin')!==-1){document.getElementById('adminBar').style.display='block';document.body.style.paddingTop='42px';}</script>
+<script>if(location.search.indexOf('admin')!==-1){document.getElementById('adminBar').style.display='block';document.documentElement.style.setProperty('--admin-offset','42px');}else{document.documentElement.style.setProperty('--admin-offset','0px');}</script>
 
 <!-- NAVIGATION -->
 <nav id="navbar">
